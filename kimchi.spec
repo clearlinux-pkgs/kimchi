@@ -4,7 +4,7 @@
 #
 Name     : kimchi
 Version  : 2.5.0
-Release  : 4
+Release  : 5
 URL      : https://github.com/kimchi-project/kimchi/archive/2.5.0.tar.gz
 Source0  : https://github.com/kimchi-project/kimchi/archive/2.5.0.tar.gz
 Summary  : No detailed summary available
