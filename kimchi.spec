@@ -4,10 +4,10 @@
 #
 Name     : kimchi
 Version  : 2.5.0
-Release  : 8
+Release  : 9
 URL      : https://github.com/kimchi-project/kimchi/archive/2.5.0.tar.gz
 Source0  : https://github.com/kimchi-project/kimchi/archive/2.5.0.tar.gz
-Summary  : No detailed summary available
+Summary  : KVM management plugin for WoK.
 Group    : Development/Tools
 License  : Apache-2.0 LGPL-2.1
 Requires: kimchi-data = %{version}-%{release}
@@ -84,22 +84,29 @@ python3 components for the kimchi package.
 
 %prep
 %setup -q -n kimchi-2.5.0
+cd %{_builddir}/kimchi-2.5.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1540762467
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1583164987
+# -Werror is for werrorists
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 %autogen --disable-static
 make
 
 %install
-export SOURCE_DATE_EPOCH=1540762467
+export SOURCE_DATE_EPOCH=1583164987
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kimchi
-cp COPYING.ASL2 %{buildroot}/usr/share/package-licenses/kimchi/COPYING.ASL2
-cp COPYING.LGPL %{buildroot}/usr/share/package-licenses/kimchi/COPYING.LGPL
+cp %{_builddir}/kimchi-2.5.0/COPYING.ASL2 %{buildroot}/usr/share/package-licenses/kimchi/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/kimchi-2.5.0/COPYING.LGPL %{buildroot}/usr/share/package-licenses/kimchi/01a6b4bf79aca9b556822601186afab86e8c4fbf
 %make_install
 %find_lang kimchi
 
@@ -198,8 +205,8 @@ cp COPYING.LGPL %{buildroot}/usr/share/package-licenses/kimchi/COPYING.LGPL
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/kimchi/COPYING.ASL2
-/usr/share/package-licenses/kimchi/COPYING.LGPL
+/usr/share/package-licenses/kimchi/01a6b4bf79aca9b556822601186afab86e8c4fbf
+/usr/share/package-licenses/kimchi/2b8b815229aa8a61e483fb4ba0588b8b6c491890
 
 %files python
 %defattr(-,root,root,-)
